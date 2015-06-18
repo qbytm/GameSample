@@ -2,95 +2,89 @@
 #include "GameTexture.h"
 
 GameTexture* image1;
-GameTexture* image2;
-GameTexture* image3;
-GameTexture* image4;
-GameTexture* image5;
-GameTexture* image6;
-GameTexture* image7;
-GameTexture* image8;
+
 GameWindow* bis;
 
+int frame;
+int m;
+
+SDL_Rect clip[8];
 
 void Start()
 {
+	frame = 0;
+	m = 3;
+
+	clip[0].x = 0;
+	clip[0].y = 0;
+	clip[0].w = 90;
+	clip[0].h = 140;
+
+	clip[1].x = 90;
+	clip[1].y = 0;
+	clip[1].w = 90;
+	clip[1].h = 140;
+	
+	clip[2].x = 180;
+	clip[2].y = 0;
+	clip[2].w = 90;
+	clip[2].h = 140;
+	
+	clip[3].x = 270;
+	clip[3].y = 0;
+	clip[3].w = 90;
+	clip[3].h = 140;
+	
+	clip[4].x = 360;
+	clip[4].y = 0;
+	clip[4].w = 90;
+	clip[4].h = 140;
+	
+	clip[5].x = 450;
+	clip[5].y = 0;
+	clip[5].w = 90;
+	clip[5].h = 140;
+	
+	clip[6].x = 540;
+	clip[6].y = 0;
+	clip[6].w = 90;
+	clip[6].h = 140;
+	
+	clip[7].x = 630;
+	clip[7].y = 0;
+	clip[7].w = 90;
+	clip[7].h = 140;
+	
+
 	image1 = new GameTexture();
 	image1->SetRenderer(bis->GetRenderer());
 
-	image2 = new GameTexture();
-	image2->SetRenderer(bis->GetRenderer());
 
-	image3 = new GameTexture();
-	image3->SetRenderer(bis->GetRenderer());
-
-	image4 = new GameTexture();
-	image4->SetRenderer(bis->GetRenderer());
-
-	image5 = new GameTexture();
-	image5->SetRenderer(bis->GetRenderer());
-
-	image6 = new GameTexture();
-	image6->SetRenderer(bis->GetRenderer());
-
-	image7 = new GameTexture();
-	image7->SetRenderer(bis->GetRenderer());
-
-	image8 = new GameTexture();
-	image8->SetRenderer(bis->GetRenderer());
-
-	if(!image1->Load("Picture/SPtest.png") || !image2->Load("Picture/SPtest.png") || !image3->Load("Picture/SPtest.png") || !image4->Load("Picture/SPtest.png") || !image5->Load("Picture/SPtest.png") || !image6->Load("Picture/SPtest.png") || !image7->Load("Picture/SPtest.png") || !image8->Load("Picture/SPtest.png"))
-	{
+	if(!image1->Load("Picture/SPtest.png")) {
 		cerr << "Load source/SPtest.png Fail" << endl;
 	}
 
-	image1->SetClip(0, 0, 90, 140);
-	image2->SetClip(90, 0, 90, 140);
-	image3->SetClip(180, 0, 90, 140);
-	image4->SetClip(270, 0, 90, 140);
-	image5->SetClip(360, 0, 90, 140);
-	image6->SetClip(450, 0, 90, 140);
-	image7->SetClip(540, 0, 90, 140);
-	image8->SetClip(630, 0, 90, 140);
-
-	image2->SetX(150); 
-	image3->SetX(300);
-	image4->SetX(450);
-	image5->SetX(0);
-	image6->SetX(150);
-	image7->SetX(300);
-	image8->SetX(450);
-
-	image5->SetY(150);
-	image6->SetY(150);
-	image7->SetY(150);
-	image8->SetY(150);
-
-
+	image1->SetClip(clip[0].x, clip[0].y, clip[0].w, clip[0].h);
+	image1->SetX(355);
+	image1->SetY(230);
+	image1->SetWidth(90);
+	image1->SetHeight(140);
 }
 
 void Update()
 {
+	image1->SetClip(clip[frame/m].x, clip[frame/m].y, clip[frame/m].w, clip[frame/m].h);
 	image1->Render();
-	image2->Render();
-	image3->Render();
-	image4->Render();
-	image5->Render();
-	image6->Render();
-	image7->Render();
-	image8->Render();
 
-}
+	frame++;
+	if(frame / m >= 8)
+		frame = 0;
+
+}	
 
 void Close()
 {
 	delete image1;
-	delete image2;
-	delete image3;
-	delete image4;
-	delete image5;
-	delete image6;
-	delete image7;
-	delete image8;
 	delete bis;
 }
 
